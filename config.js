@@ -8,7 +8,7 @@ const exampleImages = "qwertyuiopasdfghjklzxcvbnm".split("").map(
 window.CONFIG = {
 
     // Experiment Settings
-    experiment_name: "RSVP Experiment",
+    experiment_name: "Image Memory Experiment",
     subj_id_length: 8,              // number of characters (0-9, a-z) to generate a random subject ID
     max_media_load_time: 20000,     // maximum time (ms) to wait for media to preload
     run_example: true,
