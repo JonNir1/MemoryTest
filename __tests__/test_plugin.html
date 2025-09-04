@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Image-Stream Plugin Test</title>
+    <!-- jsPsych core + preload plugin -->
+    <script src="https://unpkg.com/jspsych@8.2.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@2.1.0"></script>
+
+    <link href="https://unpkg.com/jspsych@8.2.2/css/jspsych.css" rel="stylesheet" type="text/css" />
+
+    <!-- image-stream plugin -->
+    <script src="plugin-image-stream-keyboard-response.js"></script>
+</head>
+
+<body></body>
+<script>
+    const jsPsych = initJsPsych({
+        on_finish: function () {
+            jsPsych.data.displayData(); // show collected trial data on the page
+        }
+    });
+    var timeline = [];
+
+    // test images (replace with your own)
+    const images = [
+        'https://picsum.photos/seed/a/200/200',
+        'https://picsum.photos/seed/b/200/200',
+        'https://picsum.photos/seed/c/200/200',
+        'https://picsum.photos/seed/d/200/200',
+        'https://picsum.photos/seed/e/200/200'
+    ];
+
+    const preload = {
+        type: jsPsychPreload,
+        images: images,
+        max_load_time: 30000,
+    };
+    timeline.push(preload);
+
+    for (let i = 0; i < 2; i++) {
+        var trial = {
+            type: jsPsychImageStreamKeyboardResponse,
+            block_num: 1,
+            trial_num: i + 1,
+            images_pool: images,
+            stream_length: 5,
+            stim_ms: 500,
+            isi_ms: 250,
+            detect_key: ' ',
+            target_text: 'Press SPACE when you see this again.'
+        };
+        timeline.push(trial);
+    }
+
+    jsPsych.run(timeline);
+</script>
+
+</html>
