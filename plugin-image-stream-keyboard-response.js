@@ -149,17 +149,7 @@ var jsPsychImageStreamKeyboardResponse = (function (jspsych) {
             let imgDecodeFailed = false;
 
             // choose trial's images & target
-            const randomSample = (arr, size) => {   // use Fisher–Yates method to shuffle an array
-                if (size > arr.length) throw new Error(`Sample size ${size} is greater than array length ${arr.length}`);
-                const shuffled = arr.slice();
-                const stopCriteria = arr.length - size;
-                for (let i = arr.length - 1; i >= stopCriteria; i--) {
-                    const lowerIdx = Math.floor(Math.random() * (i + 1));
-                    [shuffled[i], shuffled[lowerIdx]] = [shuffled[lowerIdx], shuffled[i]];
-                }
-                return shuffled.slice(stopCriteria);    // take the last `size` elements
-            };
-            const stream = randomSample(trial.images_pool, stream_len);
+            const stream = this.jsPsych.randomization.sampleWithoutReplacement(trial.images_pool, stream_len);
             const targetIndex = Math.floor(Math.random() * stream.length);
             const target = stream[targetIndex];
 
